@@ -1,13 +1,14 @@
 VENV_PATH ?= venv
-PYTHON ?= python
-PYTHON_BINARY ?= python
+PYTHON ?= python3.8
+PYTHON_BINARY ?= python3.8
 PYTEST ?= pytest
 PIP ?= pip
 YAPF ?= yapf
 
-TORCH_VERSION ?= torch==1.8.1 torchvision==0.9.1 torchaudio==0.8.1
+TORCH_VERSION ?= torch==1.10.2 torchvision==0.11.3 torchaudio==0.10.2
 DACE_VERSION ?=
-UPDATE_PIP ?= python -m pip install --upgrade pip
+NUMPY_VERSION ?= numpy==1.23.4
+UPDATE_PIP ?= python3.8 -m pip install --upgrade pip
 SOURCE_FILES = daceml tests setup.py examples doc
 
 ifeq ($(VENV_PATH),)
@@ -33,6 +34,7 @@ ifneq ($(DACE_VERSION),)
 	$(ACTIVATE) $(PIP) install $(DACE_VERSION)
 endif
 	$(ACTIVATE) $(PIP) install $(TORCH_VERSION)
+	$(ACTIVATE) $(PIP) install $(NUMPY_VERSION)
 	$(ACTIVATE) $(PIP) install -e .[testing,docs]
 
 doc:
